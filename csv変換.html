@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSVテーブル</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSV変換テーブル</h1>
+    <textarea id="csv_data"></textarea>
+    <button onclick="createTable()">表示</button>
+    <br>
+    <table id="table"></table>
+
+    <script>
+        function createTable() {
+            var csv_data = document.getElementById("csv_data").value;
+            var rows = csv_data.split("\n");
+            var table = document.getElementById("table");
+
+            // テーブルを初期化
+            table.innerHTML = "";
+
+            // ヘッダー行を追加
+            var header_row = document.createElement("tr");
+            var header_columns = rows[0].split(",");
+            for (var i = 0; i < header_columns.length; i++) {
+                var th = document.createElement("th");
+                th.textContent = header_columns[i];
+                header_row.appendChild(th);
+            }
+            table.appendChild(header_row);
+
+            // データ行を追加
+            for (var i = 1; i < rows.length; i++) {
+                var row = document.createElement("tr");
+                var columns = rows[i].split(",");
+                for (var j = 0; j < columns.length; j++) {
+                    var td = document.createElement("td");
+                    td.textContent = columns[j];
+                    row.appendChild(td);
+                }
+                table.appendChild(row);
+            }
+        }
+    </script>
+</body>
+</html>
